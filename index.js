@@ -3,6 +3,7 @@
 var u8 = require('to-uint8')
 var dims = require('compute-dims')
 var flat = require('arr-flatten')
+var isBuffer = require('is-buffer')
 
 module.exports = pxls
 
@@ -100,7 +101,7 @@ function pxls (data, step) {
   }
 
   // refold buffers
-  if (data.byteLength != null) data = new Uint8Array(data)
+  if (data instanceof ArrayBuffer || isBuffer(data)) data = new Uint8Array(data)
 
   // ignore bad data
   if (data.length == null) return null

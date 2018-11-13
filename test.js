@@ -129,3 +129,9 @@ t('arraybuffer, buffer', t => {
 
 	t.end()
 })
+
+t('float array', t => {
+	var arr = new Float32Array([0,0,1,1])
+	t.deepEqual(pxls(arr), [0,0,255,255])
+	t.end()
+})

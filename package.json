@@ -30,6 +30,7 @@
   "dependencies": {
     "arr-flatten": "^1.1.0",
     "compute-dims": "^1.0.0",
+    "is-buffer": "^2.0.3",
     "to-uint8": "^1.4.1"
   },
   "devDependencies": {
