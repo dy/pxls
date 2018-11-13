@@ -120,3 +120,12 @@ t('readme', t => {
 
 	t.end()
 })
+
+t('arraybuffer, buffer', t => {
+	var b = new Uint8Array([0,0,0,1,0,0,0,1])
+	t.deepEqual(b, [0,0,0,1,0,0,0,1])
+	t.deepEqual(pxls(b.buffer), [0,0,0,1,0,0,0,1])
+	t.deepEqual(pxls(Buffer.from(b.buffer)), [0,0,0,1,0,0,0,1])
+
+	t.end()
+})

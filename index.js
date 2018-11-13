@@ -79,11 +79,7 @@ function pxls (data, step) {
   // unfold ImageData
   if (data.data) data = data.data
 
-  // ignore bad data
-  if (data.length == null) return null
-
   // detect nested data shape
-  if (step != false)
   if (Array.isArray(data)) {
     var shape = dims(data, 3)
 
@@ -102,6 +98,12 @@ function pxls (data, step) {
   if (step == null && width && height) {
     step = Math.floor(data.length / (width * height))
   }
+
+  // refold buffers
+  if (data.byteLength != null) data = new Uint8Array(data)
+
+  // ignore bad data
+  if (data.length == null) return null
 
   // [r,g,b, r,g,b, ...]
   if (step === 3) {
