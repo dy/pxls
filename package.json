@@ -1,0 +1,41 @@
+{
+  "name": "pxls",
+  "version": "1.0.0",
+  "description": "Get 4-channel pixels array from any argument",
+  "main": "index.js",
+  "scripts": {
+    "test": "node test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dy/pxls.git"
+  },
+  "keywords": [
+    "uint8",
+    "to-uint8",
+    "array-buffer",
+    "pixels-array",
+    "rgba-array",
+    "color-array",
+    "ndarray",
+    "normalize",
+    "pixels"
+  ],
+  "author": "Dmitry Yv. <dfcreative@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/dy/pxls/issues"
+  },
+  "homepage": "https://github.com/dy/pxls#readme",
+  "dependencies": {
+    "arr-flatten": "^1.1.0",
+    "compute-dims": "^1.0.0",
+    "to-uint8": "^1.4.1"
+  },
+  "devDependencies": {
+    "is-browser": "^2.1.0",
+    "ndarray": "^1.0.18",
+    "ndarray-scratch": "^1.2.0",
+    "tape": "^4.9.1"
+  }
+}
