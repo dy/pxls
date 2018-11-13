@@ -1,6 +1,6 @@
 # pxls [![unstable](https://img.shields.io/badge/stability-unstable-green.svg)](http://github.com/badges/stability-badges) [![Build Status](https://travis-ci.org/dy/pxls.svg?branch=master)](https://travis-ci.org/dy/pxls)
 
-Take ndarray or array of arrays, return 4-channel clean Uint8Array with pixels.
+Take in custom pixels container, return normalized 4-channel Uint8Array with pixels. Detects float/int input pixels, handles Infinities, unfolds structures.
 
 [![npm install pxls](https://nodei.co/npm/pxls.png?mini=true)](https://npmjs.org/package/pxls/)
 
