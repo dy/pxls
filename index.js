@@ -4,8 +4,11 @@ var u8 = require('to-uint8')
 var dims = require('compute-dims')
 var flat = require('arr-flatten')
 var isBuffer = require('is-buffer')
+var isBrowser = require('is-browser')
 
 module.exports = pxls
+
+var context
 
 function pxls (data, step) {
   if (!data) return data
@@ -76,6 +79,20 @@ function pxls (data, step) {
   // detect w/h from data
   if (!width) width = data.shape ? data.shape[0] : data.width
   if (!height) height = data.shape ? data.shape[1] : data.height
+
+  // DOM load async shortcut, expects data to be loaded though
+  if (isBrowser) {
+    if (data.canvas) data = data.canvas
+    if (data.tagName || typeof ImageBitmap !== 'undefined' && data instanceof ImageBitmap) {
+      if (!context) context = document.createElement('canvas').getContext('2d')
+      context.canvas.width = data.width || width
+      context.canvas.height = data.height || height
+
+      context.drawImage(data, 0, 0)
+
+      data = context.getImageData(0, 0, context.canvas.width, context.canvas.height)
+    }
+  }
 
   // unfold ImageData
   if (data.data) data = data.data

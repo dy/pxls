@@ -100,6 +100,44 @@ t('ImageData or alike', t => {
 	t.end()
 })
 
+t('DOM containers', t => {
+	if (!isBrowser) return t.end()
+
+	var context = document.createElement('canvas').getContext('2d')
+	context.canvas.width = 3
+	context.canvas.height = 5
+
+	var fix = [
+		0,0,0,0, 0,0,0,0, 0,0,0,0,
+		0,0,0,0, 0,0,0,0, 0,0,0,0,
+		0,0,0,0, 0,0,0,0, 0,0,0,0,
+		0,0,0,0, 0,0,0,0, 0,0,0,0,
+		0,0,0,0, 0,0,0,0, 0,0,0,0
+	]
+
+	context.canvas.toBlob(async function (blob) {
+		let file = new File([blob], 'x.png')
+		let bmpromise = createImageBitmap(blob)
+		let bm = await bmpromise
+
+		let canvas = context.canvas
+		let idata = context.getImageData(0,0,canvas.width,canvas.height)
+
+		t.deepEqual(pxls(idata), fix)
+		t.deepEqual(pxls(idata.data), fix)
+		t.deepEqual(pxls(canvas), fix)
+		t.deepEqual(pxls(context), fix)
+		t.deepEqual(pxls(bm), fix)
+
+		let im = new Image()
+		im.src = canvas.toDataURL()
+		im.onload = function () {
+			t.deepEqual(pxls(im), fix)
+			t.end()
+		}
+	})
+})
+
 t('playing aroung', t => {
 	t.deepEqual(pxls([0,0,0,0,1,1,1,1]), [0,0,0,0,255,255,255,255])
 	t.deepEqual(pxls([0,0,0,0,255,255,255,255]), [0,0,0,0,255,255,255,255])

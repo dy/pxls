@@ -17,7 +17,9 @@ pxls(new Ndarray([0,0,0,1,1,1], [2,1,3]) // <uint8 0,0,0,255, 255,255,255,255>
 
 ## `let pixels = pxls(arr, shape|step?)`
 
-Takes input Array, Array of Arrays, TypedArray or Ndarray, makes sure output `pixels` has flat 4 channels layout `[r,g,b,a,r,g,b,a]`.
+Takes input actual pixels container `arr` and returns 4 channels flat _Uint8Array_ `pixels` with layout `[r,g,b,a, r,g,b,a, r,g,b,a, ...]`.
+
+`arr` can be an Array of Arrays, TypedArray, Ndarray, ImageData or DOM container Image, Video, ImageBitmap, Canvas2D, Context2D, WebGLContext.
 
 1-channel input is mapped as grayscale `[v,v,v,255, v,v,v,255]`. 3-channel input fills last channel with `255` `[r,g,b,255, r,g,b,255]`.
 
