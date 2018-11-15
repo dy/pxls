@@ -81,17 +81,17 @@ function pxls (data, step) {
   if (!width) width = data.shape ? data.shape[0] : data.width
   if (!height) height = data.shape ? data.shape[1] : data.height
 
+  // intercept absent canvas (useful for headless-gl)
+  if (data.readPixels && (!data.canvas || !isBrowser)) {
+    var gl = data
+    var pixels = new Uint8Array(gl.drawingBufferWidth * gl.drawingBufferHeight * 4)
+    gl.readPixels(0, 0, gl.drawingBufferWidth, gl.drawingBufferHeight, gl.RGBA, gl.UNSIGNED_BYTE, pixels)
+
+    return flip(pixels, gl.drawingBufferWidth, gl.drawingBufferHeight)
+  }
+
   // DOM load async shortcut, expects data to be loaded though
   if (isBrowser) {
-    // intercept absent canvas (useful for headless-gl)
-    if (data.readPixels && !data.canvas) {
-      var gl = data
-      var pixels = new Uint8Array(gl.drawingBufferWidth * gl.drawingBufferHeight * 4)
-      gl.readPixels(0, 0, gl.drawingBufferWidth, gl.drawingBufferHeight, gl.RGBA, gl.UNSIGNED_BYTE, pixels)
-
-      return flip(pixels, gl.drawingBufferWidth, gl.drawingBufferHeight)
-    }
-
     if (data.canvas) data = data.canvas
     if (data.tagName || typeof ImageBitmap !== 'undefined' && data instanceof ImageBitmap) {
       if (!context) context = document.createElement('canvas').getContext('2d')
