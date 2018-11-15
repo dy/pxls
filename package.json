@@ -30,6 +30,7 @@
   "dependencies": {
     "arr-flatten": "^1.1.0",
     "compute-dims": "^1.1.0",
+    "flip-pixels": "^1.0.2",
     "is-buffer": "^2.0.3",
     "to-uint8": "^1.4.1"
   },
