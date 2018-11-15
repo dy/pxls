@@ -5,6 +5,7 @@ var dims = require('compute-dims')
 var flat = require('arr-flatten')
 var isBuffer = require('is-buffer')
 var isBrowser = require('is-browser')
+var flip = require('flip-pixels')
 
 module.exports = pxls
 
@@ -82,6 +83,15 @@ function pxls (data, step) {
 
   // DOM load async shortcut, expects data to be loaded though
   if (isBrowser) {
+    // intercept absent canvas (useful for headless-gl)
+    if (data.readPixels && !data.canvas) {
+      var gl = data
+      var pixels = new Uint8Array(gl.drawingBufferWidth * gl.drawingBufferHeight * 4)
+      gl.readPixels(0, 0, gl.drawingBufferWidth, gl.drawingBufferHeight, gl.RGBA, gl.UNSIGNED_BYTE, pixels)
+
+      return flip(pixels, gl.drawingBufferWidth, gl.drawingBufferHeight)
+    }
+
     if (data.canvas) data = data.canvas
     if (data.tagName || typeof ImageBitmap !== 'undefined' && data instanceof ImageBitmap) {
       if (!context) context = document.createElement('canvas').getContext('2d')
