@@ -82,6 +82,7 @@ function pxls (data, step) {
   if (!height) height = data.shape ? data.shape[1] : data.height
 
   // intercept absent canvas (useful for headless-gl)
+  if (data.gl || data._gl || data.regl) data = data.regl ? data.regl._gl : data.gl || data._gl
   if (data.readPixels && (!data.canvas || !isBrowser)) {
     var gl = data
     var pixels = new Uint8Array(gl.drawingBufferWidth * gl.drawingBufferHeight * 4)

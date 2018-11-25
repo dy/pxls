@@ -173,3 +173,5 @@ t('float array', t => {
 	t.deepEqual(pxls(arr), [0,0,255,255])
 	t.end()
 })
+
+t('regl')
