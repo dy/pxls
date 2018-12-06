@@ -83,7 +83,9 @@ function pxls (data, step) {
 
   // intercept absent canvas (useful for headless-gl)
   if (data.gl || data._gl || data.regl) data = data.regl ? data.regl._gl : data.gl || data._gl
-  if (data.readPixels && (!data.canvas || !isBrowser)) {
+
+  // faster to use drawImage(WrbGLContext), but it has some weird async function/raf side-effect
+  if (data.readPixels) {
     var gl = data
     var pixels = new Uint8Array(gl.drawingBufferWidth * gl.drawingBufferHeight * 4)
     gl.readPixels(0, 0, gl.drawingBufferWidth, gl.drawingBufferHeight, gl.RGBA, gl.UNSIGNED_BYTE, pixels)
