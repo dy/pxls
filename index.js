@@ -98,6 +98,8 @@ function pxls (data, step) {
     if (data.canvas) data = data.canvas
     if (data.tagName || typeof ImageBitmap !== 'undefined' && data instanceof ImageBitmap) {
       if (!context) context = document.createElement('canvas').getContext('2d')
+
+      // clears canvas too
       context.canvas.width = data.width || width
       context.canvas.height = data.height || height
 
